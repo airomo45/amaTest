@@ -1,0 +1,2 @@
+# amaTest
+myMasjid app test
