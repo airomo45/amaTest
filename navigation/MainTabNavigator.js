@@ -3,9 +3,11 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
+import TabBarIconAlt from '../components/TabBarIconAlt';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -18,8 +20,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `md-home${focused ? '' : '-outline'}`
-          : 'md-home'
+          ? `ios-home${focused ? '' : '-outline'}`
+          : 'ios-home'
       }
     />
   ),
@@ -39,6 +41,35 @@ LinksStack.navigationOptions = {
   ),
 };
 
+const AboutStack = createStackNavigator({
+  Settings: AboutScreen,
+});
+
+AboutStack.navigationOptions = {
+  tabBarLabel: 'About',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-person'}
+    />
+  ),
+};
+
+// const AboutStack = createStackNavigator({
+//   Settings: AboutScreen,
+// });
+
+// AboutStack.navigationOptions = {
+//   tabBarLabel: 'About',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIconAlt
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? `user${focused ? '' : ''}` : 'md-options'}
+//     />
+//   ),
+// };
+
+
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
 });
@@ -55,6 +86,22 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
+  AboutStack,
   LinksStack,
   SettingsStack,
-});
+  
+  
+},
+{
+  navigationOptions: ({ navigation }) => ({
+    
+  }),
+  tabBarOptions: {
+    activeTintColor: '#2f95dc',
+    inactiveTintColor: 'gray',
+    activeBackgroundColor: '#001a33',
+    inactiveBackgroundColor: '#003366'
+  },
+}
+
+);

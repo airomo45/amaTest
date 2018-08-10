@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19002,
-  "packagerPid": 18664,
-  "expoServerNgrokUrl": "https://vi-g64.airomo123.amatest.exp.direct",
-  "packagerNgrokUrl": "https://packager.vi-g64.airomo123.amatest.exp.direct",
-  "ngrokPid": 18679
+  "packagerPid": 30747,
+  "expoServerNgrokUrl": "https://vi-g64.solutioncentraladmin.amatest.exp.direct",
+  "packagerNgrokUrl": "https://packager.vi-g64.solutioncentraladmin.amatest.exp.direct",
+  "ngrokPid": 30767
 }
