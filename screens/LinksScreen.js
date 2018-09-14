@@ -6,10 +6,10 @@ import axios from 'axios';
 export default class LinksScreen extends React.Component {
   state = {
     persons: [],
-    name: 'Romo'
+    name: 'Romo man'
   }
   componentDidMount() {
-    axios.get(`https://sheetlabs.com/ACCT/TestingApi`)
+    axios.get(`https://sheetlabs.com/ACCT/testAMANew?date=2018-08-28T00:00:00+00:00`)
       .then(res => {
         const persons = res.data;
         this.setState({ persons });
@@ -46,22 +46,15 @@ export default class LinksScreen extends React.Component {
           <View>
             {
               this.state.persons.map((item, index) => {
-                        if (item.empname = ''){
-                          return (
-                            <Text>
-                              {item.empname}
-                            </Text>
-                          )
-                        }
-                        else {
-                        return (
-                          <Text>
-                            {item.empname}
-                          </Text>
-                        )
-                        }
-            }
+                return (
+                  <Text>
+                    {item.maghrib}
+                  </Text>
+                )
+              }
+                        
             )
+
             }
           </View>
         </View>
