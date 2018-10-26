@@ -6,7 +6,7 @@ export default class AboutScreen extends React.Component {
   static navigationOptions = {
     title: 'About',
     headerStyle: {
-      backgroundColor: '#003366',
+      backgroundColor: '#142922',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {

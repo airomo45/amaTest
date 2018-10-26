@@ -5,7 +5,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import TabBarIconAlt from '../components/TabBarIconAlt';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import PrayerTimes from '../screens/PrayerTimes';
 import SettingsScreen from '../screens/SettingsScreen';
 import AboutScreen from '../screens/AboutScreen';
 
@@ -27,33 +27,33 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const PrayerStack = createStackNavigator({
+  Prayer: PrayerTimes,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+PrayerStack.navigationOptions = {
+  tabBarLabel: 'Prayer Times',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-time${focused ? '' : '-outline'}` : 'md-time'}
     />
   ),
 };
 
-const AboutStack = createStackNavigator({
-  Settings: AboutScreen,
-});
+// const AboutStack = createStackNavigator({
+//   Settings: AboutScreen,
+// });
 
-AboutStack.navigationOptions = {
-  tabBarLabel: 'About',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-person'}
-    />
-  ),
-};
+// AboutStack.navigationOptions = {
+//   tabBarLabel: 'About',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-person'}
+//     />
+//   ),
+// };
 
 // const AboutStack = createStackNavigator({
 //   Settings: AboutScreen,
@@ -86,8 +86,8 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  AboutStack,
-  LinksStack,
+  // AboutStack,
+  PrayerStack,
   SettingsStack,
   
   
@@ -97,10 +97,10 @@ export default createBottomTabNavigator({
     
   }),
   tabBarOptions: {
-    activeTintColor: '#2f95dc',
+    activeTintColor: '#66CDAA',
     inactiveTintColor: 'gray',
-    activeBackgroundColor: '#001a33',
-    inactiveBackgroundColor: '#003366'
+    activeBackgroundColor: '#0a1411',
+    inactiveBackgroundColor: '#142922'
   },
 }
 
