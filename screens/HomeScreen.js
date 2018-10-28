@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
+import moment from 'moment';
 import { MonoText } from '../components/StyledText';
 import axios from 'axios';
 
@@ -35,13 +35,21 @@ export default class HomeScreen extends React.Component {
 
   
   componentDidMount() {
+
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    var time =  date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    // var time =  date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var time = moment().format('h:mm A');
+
     console.log(
+      "||||||||||||||||||||||||||||||||||||||||||>" +
       time
+    );
+    console.log(
+      "||||||||||||||||||||||||||||||||||||||||||=====================>" +
+      moment().format('h:mm A')
     );
     this.setState({currentTime: time});
     
@@ -93,9 +101,8 @@ export default class HomeScreen extends React.Component {
      |--------------------------------------------------------------------------------
      | Test with hard coded time:
      |---------------------------------------------------------------------------------
-      const current_time = new Date('' + this.state.todaysDate + ' 7:30 PM').getTime(); 
-     */
-
+      const current_time = new Date('' + this.state.todaysDate + ' 12:39 PM').getTime();
+     */ 
     const fajr_time = new Date('' + this.state.todaysDate + ' ' + this.state.fajrTime + '').getTime();
     const zuhr_time = new Date('' + this.state.todaysDate + ' ' + this.state.zuhrTime + '').getTime();
     const asr_time =  new Date('' + this.state.todaysDate + ' ' + this.state.asrTime + '').getTime();
@@ -103,6 +110,7 @@ export default class HomeScreen extends React.Component {
     const isha_time =  new Date('' + this.state.todaysDate + ' ' + this.state.ishaTime + '').getTime();
 
     console.log(current_time < fajr_time);
+    console.log("Testing the time >>>>>>>>> " + this.state.todaysDate + ' ' + this.state.currentTime);
 
 
     // const next_time = '' + this.state.todaysDate + ' ' + this.state.currentTime + '';
@@ -111,22 +119,22 @@ export default class HomeScreen extends React.Component {
     // {
     //   console.log("Its fajr time")
     // }
-    if (current_time > fajr_time && current_time < zuhr_time)
+    if (current_time > fajr_time && current_time <= zuhr_time)
     {
       console.log("Its zuhr time")
       return ("Zuhr");
     }
-    else if (current_time > zuhr_time && current_time < asr_time)
+    else if (current_time > zuhr_time && current_time <= asr_time)
     {
       console.log("Its asr time")
       return ("Asr");
     }
-    else if (current_time > asr_time && current_time < maghrib_time)
+    else if (current_time > asr_time && current_time <= maghrib_time)
     {
       console.log("Its maghrib time")
       return ("Maghrib");
     }
-    else if (current_time > maghrib_time && current_time < isha_time)
+    else if (current_time > maghrib_time && current_time <= isha_time)
     {
       console.log("Its Isha time")
       return ("Isha");
@@ -156,118 +164,163 @@ export default class HomeScreen extends React.Component {
     console.log("====> " + this.whatPrayerTime());
     return (
       <View style={styles.container}>
-        <Text>
-          Next Prayer:
-        </Text>
-        <Text>
+        <View style={styles.nextTime}>
+          <View style={styles.header}>
+            <Text style={styles.h2}>
+              Next Prayer 2:
+            </Text>
+          </View>
+          <View style={styles.prayerHeader}>
+            <Text style={styles.h1}>
+              {
+                this.whatPrayerTime()
+              }
+            </Text>
+          </View>
           {
-            this.whatPrayerTime()
-          }
-        </Text>
-        {
 
-          this.state.persons.map((item, index) => {
-            return(
-              <View>
-   
-                  {
-                    // Fajr:
-                    
-                    this.whatPrayerTime() == 'Fajr'?
-                    <View>
-                      <Text>
+            this.state.persons.map((item, index) => {
+              return(
+                <View>
+    
+                {
+                  //Fajr:
+                  
+                  this.whatPrayerTime() == 'Fajr'?
+                  <View>
+                    <View style={styles.prayerHeader}>
+                      <Text style={styles.h2}>
                         Adhan:
                         {" " + item.fajr_na }
                       </Text>
-                      <Text>
-                        Iqamah:
-                        {" " + item.fajr_iqamah}
+                    </View>
+                    <View style={styles.prayerHeader}>
+                      <Text  style={styles.h2}>
+                        Iqamah at Al-Madina:
                       </Text>
                     </View>
-                      : 
-                    null
-
-                  }
-                  {
-                    // Zuhr:
-                    
-                    this.whatPrayerTime() == 'Zuhr'?
-                    <View>
-                      <Text>
-                        Adhan:
-                        {" " + item.dhuhr }
-                      </Text>
-                      <Text>
-                        Iqamah:
-                        {" " + item.dhuhr_iqamah}
+                    <View style={styles.iqamahTime}>
+                      <Text style={[styles.h1, {color: '#fff'}]}>
+                      {item.fajr_iqamah}
                       </Text>
                     </View>
-                      : 
-                    null
+                  </View>
+                    : 
+                  null
 
-                  }
-                  {
-                    // Asr:
-                    
-                    this.whatPrayerTime() == 'Asr'?
-                    <View>
-                      <Text>
-                        Adhan:
-                        {" " + item.asr_hanafi }
-                      </Text>
-                      <Text>
-                        Iqamah:
-                        {" " + item.asr_iqamah}
-                      </Text>
-                    </View>
-                      : 
-                    null
+                }
+                    {
+                      // Zuhr:
+                      
+                      this.whatPrayerTime() == 'Zuhr'?
+                      <View>
+                        <View style={styles.prayerHeader}>
+                          <Text style={styles.h2}>
+                            Adhan:
+                            {" " + item.dhuhr }
+                          </Text>
+                        </View>
+                        <View style={styles.prayerHeader}>
+                          <Text  style={styles.h2}>
+                            Iqamah at Al-Madina:
+                          </Text>
+                        </View>
+                        <View style={styles.iqamahTime}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
+                          {item.dhuhr_iqamah}
+                          </Text>
+                        </View>
+                      </View>
+                        : 
+                      null
 
-                  }
-                  {
-                    // Maghrib:
-                    
-                    this.whatPrayerTime() == 'Maghrib'?
-                    <View>
-                      <Text>
-                        Adhan:
-                        {" " + item.maghrib }
-                      </Text>
-                      <Text>
-                        Iqamah:
-                        {" " + item.maghrib_iqamah}
-                      </Text>
-                    </View>
-                      : 
-                    null
+                    }
+                    {
+                      // Asr:
+                      
+                      this.whatPrayerTime() == 'Asr'?
+                      <View>
+                        <View style={styles.prayerHeader}>
+                          <Text style={styles.h2}>
+                            Adhan:
+                            {" " + item.asr_hanafi }
+                          </Text>
+                        </View>
+                        <View style={styles.prayerHeader}>
+                          <Text  style={styles.h2}>
+                            Iqamah at Al-Madina:
+                          </Text>
+                        </View>
+                        <View style={styles.iqamahTime}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
+                          {item.asr_iqamah}
+                          </Text>
+                        </View>
+                      </View>
+                        : 
+                      null
 
-                  }
-                  {
-                    // Isha:
-                    
-                    this.whatPrayerTime() == 'Isha'?
-                    <View>
-                      <Text>
-                        Adhan:
-                        {" " + item.isha }
-                      </Text>
-                      <Text>
-                        Iqamah:
-                        {" " + item.isha_iqamah}
-                      </Text>
-                    </View>
-                      : 
-                    null
+                    }
+                    {
+                      // Maghrib:
+                      
+                      this.whatPrayerTime() == 'Maghrib'?
+                      <View>
+                        <View style={styles.prayerHeader}>
+                          <Text style={styles.h2}>
+                            Adhan:
+                            {" " + item.maghrib }
+                          </Text>
+                        </View>
+                        <View style={styles.prayerHeader}>
+                          <Text  style={styles.h2}>
+                            Iqamah at Al-Madina:
+                          </Text>
+                        </View>
+                        <View style={styles.iqamahTime}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
+                          {item.maghrib_iqamah}
+                          </Text>
+                        </View>
+                      </View>
+                        : 
+                      null
 
-                  }
+                    }
+                    {
+                      // Isha:
+                      
+                      this.whatPrayerTime() == 'Isha'?
+                      <View>
+                        <View style={styles.prayerHeader}>
+                          <Text style={styles.h2}>
+                            Adhan:
+                            {" " + item.isha }
+                          </Text>
+                        </View>
+                        <View style={styles.prayerHeader}>
+                          <Text  style={styles.h2}>
+                            Iqamah at Al-Madina:
+                          </Text>
+                        </View>
+                        <View style={styles.iqamahTime}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
+                          {item.isha_iqamah}
+                          </Text>
+                        </View>
+                      </View>
+                        : 
+                      null
+
+                    }
 
 
-              
-              </View>
-            );
-          })
-        }
-
+                
+                </View>
+              );
+            })
+          }
+        </View>
       </View>
     );
   }
@@ -277,8 +330,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e6f2ff',
-    justifyContent: 'center',
-     alignItems: 'center' 
+    paddingTop: 30
   },
+  nextTime: {
+    backgroundColor: '#142922',
+    height: 400,
+  },
+  header: {
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3d7b66'
+
+  },
+
+  h2: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
+  prayerHeader: {
+    paddingTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  h1:{
+    color: '#fff',
+    fontSize: 70,
+    fontWeight: 'bold'
+  },
+  iqamahTime:{
+    backgroundColor: '#3d7b66',
+    marginTop: 20,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
 
 });

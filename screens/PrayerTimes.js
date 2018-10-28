@@ -7,9 +7,6 @@ export default class PrayerTimes extends React.Component {
   state = {
     persons: [],
     name: 'Romo man',
-
-  
-
   }
 
 

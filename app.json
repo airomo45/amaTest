@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "my-test",
+    "name": "ama-test",
     "description": "A very interesting project.",
-    "slug": "my-test",
+    "slug": "ama-test",
     "privacy": "public",
     "sdkVersion": "29.0.0",
     "platforms": ["ios", "android"],
@@ -21,7 +21,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1",
+      "bundleIdentifier": "com.ama.amaTest"
+    },
+    "android": {
+      "package": "com.ama.amaTest",
+      "versionCode": 1
     }
   }
 }
