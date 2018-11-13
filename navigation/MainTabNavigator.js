@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import PrayerTimes from '../screens/PrayerTimes';
 import SettingsScreen from '../screens/SettingsScreen';
 import AboutScreen from '../screens/AboutScreen';
+import NewHomeScreen from '../screens/NewHomeScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -69,6 +70,19 @@ PrayerStack.navigationOptions = {
 //   ),
 // };
 
+const NewHomeStack = createStackNavigator({
+  NewHome: NewHomeScreen,
+});
+
+NewHomeStack.navigationOptions = {
+  tabBarLabel: 'New Home',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
@@ -85,8 +99,10 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  NewHomeStack,
   HomeStack,
   // AboutStack,
+
   PrayerStack,
   SettingsStack,
   

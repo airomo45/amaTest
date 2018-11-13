@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ama-test",
+    "name": "My Masjid",
     "description": "A very interesting project.",
-    "slug": "ama-test",
+    "slug": "my-masjid",
     "privacy": "public",
     "sdkVersion": "29.0.0",
     "platforms": ["ios", "android"],
@@ -11,7 +11,7 @@
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
