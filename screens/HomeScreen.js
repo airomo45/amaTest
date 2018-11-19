@@ -516,16 +516,19 @@ export default class HomeScreen extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center',
     paddingTop: 0,
-    height: '100%'
+    height: '100%',
+    width: '100%',
+
   },
   nextTime: {
     backgroundColor: '#142922',
     height: '69.5%',
+    width: '100%',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,

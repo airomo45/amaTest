@@ -9,6 +9,7 @@ import PrayerTimes from '../screens/PrayerTimes';
 import SettingsScreen from '../screens/SettingsScreen';
 import AboutScreen from '../screens/AboutScreen';
 import NewHomeScreen from '../screens/NewHomeScreen';
+import Home from '../screens/Home';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -73,7 +74,7 @@ PrayerStack.navigationOptions = {
 // };
 
 const NewHomeStack = createStackNavigator({
-  NewHome: NewHomeScreen,
+  NewHome: Home,
 });
 
 NewHomeStack.navigationOptions = {
@@ -105,7 +106,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  // NewHomeStack,
+  NewHomeStack,
   HomeStack,
   // AboutStack,
 
