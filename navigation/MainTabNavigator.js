@@ -19,6 +19,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
+      size = {24}
       name={
         Platform.OS === 'ios'
           ? `ios-home${focused ? '' : '-outline'}`
@@ -37,6 +38,7 @@ PrayerStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
+      size = {24}
       name={Platform.OS === 'ios' ? `ios-time${focused ? '' : '-outline'}` : 'md-time'}
     />
   ),
@@ -78,7 +80,10 @@ NewHomeStack.navigationOptions = {
   tabBarLabel: 'New Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
+
       focused={focused}
+      size = {24}
+
       name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
     />
   ),
@@ -93,18 +98,19 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
+      size = {24}
       name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  NewHomeStack,
+  // NewHomeStack,
   HomeStack,
   // AboutStack,
 
   PrayerStack,
-  SettingsStack,
+  // SettingsStack,
   
   
 },
@@ -112,12 +118,23 @@ export default createBottomTabNavigator({
   navigationOptions: ({ navigation }) => ({
     
   }),
+
   tabBarOptions: {
+    style: {
+      height: 60,
+    },
     activeTintColor: '#66CDAA',
-    inactiveTintColor: 'gray',
+    inactiveTintColor: '#ccc',
     activeBackgroundColor: '#0a1411',
     inactiveBackgroundColor: '#142922'
   },
+  labelStyles:{ fontSize:25 },
+
+  iconStyle: {
+    width: 60,
+    height: 60,
+    padding:0       //Padding 0 here
+},
 }
 
 );

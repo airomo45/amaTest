@@ -7,11 +7,15 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StatusBar
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import { WebBrowser, Font } from 'expo';
 import moment from 'moment';
 import { MonoText } from '../components/StyledText';
 import axios from 'axios';
+import { LinearGradient, } from 'expo';
+
+// import {BoxShadow} from 'react-native-shadow'
 
 
 
@@ -20,6 +24,8 @@ import axios from 'axios';
 export default class HomeScreen extends React.Component {
   state = {
     persons: [],
+    nextDay: [],
+    fajrNextDay: '',
     name: 'Romo man',
     currentTime: '',
     nextTime: '',
@@ -28,7 +34,10 @@ export default class HomeScreen extends React.Component {
     asrTime: '',
     maghribTime: '',
     ishaTime: '',
-    todaysDate: ''
+    todaysDate: '',
+    tomorrowsDate: '',
+    militaryCurrentTime: '',
+    
   
 
   }
@@ -36,12 +45,25 @@ export default class HomeScreen extends React.Component {
   
   componentDidMount() {
 
+    Font.loadAsync({
+      'lemon-jelly': require('../assets/fonts/Lobster.otf'),
+    });
+
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     // var time =  date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     var time = moment().format('h:mm A');
+
+    var militaryTime = '' + date.getHours() + ':' + date.getMinutes() + '';
+
+    this.setState({
+      militaryCurrentTime: militaryTime
+    })
+
+
+    console.log('https://sheetlabs.com/ACCT/AMA_APP_DATA?date=' + year + '-' + month + '-' + (day + 1) + '')
 
     console.log(
       "||||||||||||||||||||||||||||||||||||||||||>" +
@@ -70,18 +92,40 @@ export default class HomeScreen extends React.Component {
           asrTime: persons[0].asr_iqamah,
           maghribTime: persons[0].maghrib_iqamah,
           ishaTime: persons[0].isha_iqamah,
-          todaysDate: '' + month + '/' + day + '/' + year + ''
+          todaysDate: '' + month + '/' + day + '/' + year + '',
+          tomorrowsDate: '' + month + '/' + (day + 1) + '/' + year + '',
         }
       );
       })
+
+      axios.get(
+        'https://sheetlabs.com/ACCT/AMA_APP_DATA?date=' + year + '-' + month + '-' + (day + 1) + ''
+        // 'https://sheetlabs.com/ACCT/AMA_APP_DATA?date=2018-09-14'
+      )
+        .then(res => {
+          const nextDay = res.data;
+          this.setState({ nextDay });
+          console.log(nextDay[0].empname);
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>" + nextDay[0].fajr_na);
+          this.setState(
+          {
+            fajrNextDay: nextDay[0].fajr_iqamah,
+
+          }
+        );
+        })
       // this.whatPrayerTime();
 
   }
 
   whatPrayerTime() {
+    console.log(this.state.currentTime > '12:00 AM'  );
     console.log("=================> It works!");
     console.log(this.state.fajrTime);
     console.log(this.state.todaysDate);
+    console.log("========123456878798=========> It works!");
+
+    console.log(this.state.fajrNextDay);
 
 
     /**
@@ -96,7 +140,10 @@ export default class HomeScreen extends React.Component {
 
     // const current_time = '' + this.state.todaysDate + ' ' + this.state.currentTime + '';
 
-    const current_time = new Date('' + this.state.todaysDate + ' ' + this.state.currentTime + '').getTime();
+
+   const current_time = new Date('' + this.state.todaysDate + ' ' + this.state.currentTime + '').getTime();
+  // const current_time = new Date('' + this.state.todaysDate + ' 12:15 AM').getTime();
+
      /**
      |--------------------------------------------------------------------------------
      | Test with hard coded time:
@@ -108,9 +155,37 @@ export default class HomeScreen extends React.Component {
     const asr_time =  new Date('' + this.state.todaysDate + ' ' + this.state.asrTime + '').getTime();
     const maghrib_time =  new Date('' + this.state.todaysDate + ' ' + this.state.maghribTime + '').getTime();
     const isha_time =  new Date('' + this.state.todaysDate + ' ' + this.state.ishaTime + '').getTime();
+    const fajr_NextDay = new Date('' + this.state.tomorrowsDate + ' ' + this.state.fajrNextDay + '').getTime();
 
     console.log(current_time < fajr_time);
     console.log("Testing the time >>>>>>>>> " + this.state.todaysDate + ' ' + this.state.currentTime);
+    
+    console.log("==========================================================");
+    console.log();
+    console.log();
+    console.log("This is the current time: " + current_time);
+    console.log("This is isha time: " + isha_time);
+    console.log('This is fajr time ' + fajr_time);
+    console.log("Is current time > isha" + current_time > isha_time);
+    console.log("Is current time < fajr" + current_time < fajr_time);
+    console.log("Is current time < Zuhr" + current_time > fajr_time && current_time <= zuhr_time);
+    console.log();
+    console.log();
+    console.log("==========================================================");
+    console.log(fajr_NextDay);
+    console.log("==========================================================>");
+    console.log("This is the current time: " + current_time);
+    console.log("This is the fajr time tomorrow: " + fajr_NextDay);
+    console.log(current_time < fajr_NextDay);
+    console.log("==========================================================>");
+    console.log("This is the current time: " + current_time);
+    console.log("This is the isha time: " + isha_time);
+    // console.log(current_time > isha_time);
+
+
+
+
+
 
 
     // const next_time = '' + this.state.todaysDate + ' ' + this.state.currentTime + '';
@@ -119,7 +194,12 @@ export default class HomeScreen extends React.Component {
     // {
     //   console.log("Its fajr time")
     // }
-    if (current_time > fajr_time && current_time <= zuhr_time)
+    if ((current_time > isha_time && current_time <= fajr_NextDay) || (current_time <= fajr_time) )
+    {
+      console.log("Its Fajr time")
+      return ("Fajr");
+    }
+    else if (current_time > fajr_time && current_time <= zuhr_time)
     {
       console.log("Its zuhr time")
       return ("Zuhr");
@@ -139,11 +219,18 @@ export default class HomeScreen extends React.Component {
       console.log("Its Isha time")
       return ("Isha");
     }
+    // else if (current_time > isha_time && current_time <= fajr_time){
+    //   console.log("Its Fajr time yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaayyyyyyyy!");
+    //   return ("Fajr");
+    //   // this.setState({nextTime: 'Fajr Time'})
+    // }
+
     else {
-      console.log("Its Fajr time");
-      return ("Fajr");
+      console.log("Its null time");
+      return ("null");
       // this.setState({nextTime: 'Fajr Time'})
     }
+
 
     console.log(current_time);
   }
@@ -163,16 +250,65 @@ export default class HomeScreen extends React.Component {
     this.whatPrayerTime();
     console.log("====> " + this.whatPrayerTime());
     return (
-      <View style={styles.container}>
+      <View style={styles.container}
+      >
+
+      {
+        // Loading overlay:
+      // this.whatPrayerTime() == 'Fajr'?
+      //  <View style={{
+      //    height: '100%', 
+      //    width: '100%', 
+      //    backgroundColor:'#000',
+      //    position: 'absolute' ,
+      //    top: 0,
+      //    left: 0, 
+      //    opacity: .6,
+      //    marginTop: -80,
+      //   }}>
+      //   <Text>
+      //     NUll
+      //   </Text>
+      //  </View>
+      //  :
+      //  null
+      }
+
+        <StatusBar
+          // backgroundColor="blue"
+          barStyle="light-content"
+        />
         <View style={styles.nextTime}>
+        { /*<LinearGradient 
+        start={{x: 0, y: .8}} end={{x: 0, y: 1}}
+        colors={['#142922', '#ffffff']}
+        style={styles.container}>*/}
+        {
+          <View style={{height: 30, width: '100%', backgroundColor: '#142922'}}>
+          </View>
+        }
+        {
+        // <View style={styles.iqamahTime}>
+        //   <Text>
+        //   {
+        //     "Today's date: " + this.state.todaysDate
+        //   }
+            
+        //   </Text>
+        // </View>
+        }
           <View style={styles.header}>
-            <Text style={styles.h2}>
-              Next Prayer 2:
+
+            <Text style={styles.title}>
+              Next Prayer:
             </Text>
           </View>
           <View style={styles.prayerHeader}>
             <Text style={styles.h1}>
               {
+                this.whatPrayerTime() == 'null'?
+                null
+                :
                 this.whatPrayerTime()
               }
             </Text>
@@ -187,7 +323,10 @@ export default class HomeScreen extends React.Component {
                   //Fajr:
                   
                   this.whatPrayerTime() == 'Fajr'?
-                  <View>
+                  // Checking which fajr time to display
+                  (this.state.militaryCurrentTime < '0:00' && this.state.militaryCurrentTime < '8:00')?
+                    // Displays fajr for current date
+                    <View>
                     <View style={styles.prayerHeader}>
                       <Text style={styles.h2}>
                         Adhan:
@@ -205,6 +344,31 @@ export default class HomeScreen extends React.Component {
                       </Text>
                     </View>
                   </View>
+                  :
+                  // displays fajr for tomorrow's date
+                  this.state.nextDay.map((item2, index) => {
+                    return(
+                        <View>
+                          <View style={styles.prayerHeader}>
+                            <Text style={styles.h2}>
+                              Adhan:
+                              {" " + item2.fajr_na }
+                            </Text>
+                          </View>
+                          <View style={styles.prayerHeader}>
+                            <Text  style={styles.h2}>
+                              Iqamah at Al-Madina:
+                            </Text>
+                          </View>
+                          <View style={styles.iqamahTime}>
+                            <Text style={[styles.h1, {color: '#fff'}]}>
+                            {item2.fajr_iqamah}
+                            </Text>
+                          </View>
+                        </View>
+                    )
+                  }
+                )
                     : 
                   null
 
@@ -320,8 +484,32 @@ export default class HomeScreen extends React.Component {
               );
             })
           }
+{/*          </LinearGradient> */}
         </View>
+        {
+          Platform.OS === 'android'?
+            <View>
+            <LinearGradient
+                colors={['rgba(0,0,0,.6)', 'transparent']}
+                style={{
+                    left: 0,
+                    right: 0,
+                    height: 40,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                }}
+            />
+            </View>
+            :
+            null
+          }
+
+
+
+        
+       
       </View>
+      
     );
   }
 
@@ -329,25 +517,47 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e6f2ff',
-    paddingTop: 30
+    backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    paddingTop: 0,
+    height: '100%'
   },
   nextTime: {
     backgroundColor: '#142922',
-    height: 400,
+    height: '69.5%',
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 45
+    },
+    shadowRadius: 5,
+    shadowOpacity: .65,
+    // elevation: 100,
+
+
+
   },
   header: {
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3d7b66'
+    backgroundColor: '#3d7b66',
+    // borderTopWidth: 60,
+    // borderTopColor: 'white'
 
   },
 
   h2: {
     color: '#fff',
-    fontSize: 28,
-    fontWeight: 'bold'
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 38,
+    fontWeight: 'bold',
+    
   },
   prayerHeader: {
     paddingTop: 20,
@@ -356,16 +566,24 @@ const styles = StyleSheet.create({
   },
   h1:{
     color: '#fff',
-    fontSize: 70,
-    fontWeight: 'bold'
+    fontSize: 90,
+    fontWeight: 'bold',
   },
   iqamahTime:{
-    backgroundColor: '#3d7b66',
+    backgroundColor: '#51a45f',
     marginTop: 20,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
+  dateHeader:{
+    backgroundColor: 'red',
+    padding: 15
+  },
+  dateText:{
+    color: 'white'
+  }
 
 
 });

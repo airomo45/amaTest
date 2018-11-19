@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import axios from 'axios';
 
@@ -42,7 +42,7 @@ export default class PrayerTimes extends React.Component {
    
 
   static navigationOptions = {
-    title: 'Prayer Times',
+    title: 'Prayer Times: ',
     headerStyle: {
       backgroundColor: '#142922',
     },
@@ -59,6 +59,10 @@ export default class PrayerTimes extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
+        <StatusBar
+          // backgroundColor="blue"
+          barStyle="light-content"
+        />
         {/* Go ahead and delete ExpoLinksView and replace it with your
            * content, we just wanted to provide you with some helpful links */}
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -252,7 +256,7 @@ const styles = StyleSheet.create({
   },
   timeTitle: {
     color: '#fff',
-    fontSize: 25,
+    // fontSize: '10%',
     fontWeight: 'bold'
     
   },

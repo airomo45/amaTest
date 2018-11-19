@@ -13,6 +13,7 @@ import moment from 'moment';
 import { MonoText } from '../components/StyledText';
 import axios from 'axios';
 import Circle from '../components/svg/Circle';
+import BoxShadow from '../components/BoxShadow'
 
 
 
@@ -165,7 +166,7 @@ export default class NewHomeScreen extends React.Component {
     console.log("====> " + this.whatPrayerTime());
     return (
       <View style={styles.container}>
-       <Circle/>
+        <BoxShadow/>
       </View>
     );
   }
@@ -174,8 +175,8 @@ export default class NewHomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     // backgroundColor: '#e6f2ff',
     // paddingTop: 30
   },
