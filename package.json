@@ -24,6 +24,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-cardview": "^2.0.2",
     "react-native-cli": "^2.0.1",
+    "react-native-iphone-x-helper": "^1.2.0",
     "react-native-shadow": "^1.2.2",
     "react-native-svg": "^8.0.8",
     "react-navigation": "^2.9.3"

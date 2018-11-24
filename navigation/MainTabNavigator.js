@@ -10,6 +10,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import AboutScreen from '../screens/AboutScreen';
 import NewHomeScreen from '../screens/NewHomeScreen';
 import Home from '../screens/Home';
+import { isIphoneX } from 'react-native-iphone-x-helper'
 
 const HomeStack = createStackNavigator({
   Home: Home,
@@ -123,6 +124,11 @@ export default createBottomTabNavigator({
   tabBarOptions: {
     style: {
       height: 60,
+      marginBottom: isIphoneX() ? -30: 0,
+      // paddingBottom: 10,
+
+      backgroundColor: '#142922',
+
     },
     activeTintColor: '#66CDAA',
     inactiveTintColor: '#ccc',
