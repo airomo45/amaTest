@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     // fontSize: '10%',
     fontWeight: 'bold',
-    fontSize: scaleWidth(45),
+    fontSize: scaleWidth(55),
 
     
   },
