@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import axios from 'axios';
+import { scaleWidth, scaleHeight } from '../assets/responsive/fontSize';
 
 export default class PrayerTimes extends React.Component {
   state = {
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
 
   },
   timeContainer: {
-    width: 320,
+    width: '100%',
     height: 50,
     // padding: 10,
     backgroundColor: '#3d7b66',
@@ -257,13 +258,16 @@ const styles = StyleSheet.create({
   timeTitle: {
     color: '#fff',
     // fontSize: '10%',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: scaleWidth(45),
+
     
   },
   timeText: {
     color: '#fff',
-    fontSize: 25,
-    fontWeight: 'bold'
+    // fontSize: 25,
+    fontSize: scaleWidth(45),
+    fontWeight: 'bold',
   },
   leftColumn:{
     backgroundColor: '#142922',
@@ -284,7 +288,7 @@ const styles = StyleSheet.create({
 
   },
   iqamahContainer: {
-    width: 320,
+    width: '100%',
     height: 40,
     paddingTop: 0,
     paddingBottom: 0,
@@ -317,7 +321,7 @@ const styles = StyleSheet.create({
 
   },
   sunriseContainer: {
-    width: 320,
+    width: '100%',
     height: 40,
     paddingTop: 0,
     paddingBottom: 0,

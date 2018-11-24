@@ -14,6 +14,7 @@ import moment from 'moment';
 import { MonoText } from '../components/StyledText';
 import axios from 'axios';
 import { LinearGradient, } from 'expo';
+import { scaleWidth, scaleHeight } from '../assets/responsive/fontSize';
 
 // import {BoxShadow} from 'react-native-shadow'
 
@@ -295,7 +296,7 @@ export default class Home extends React.Component {
               Next Prayer:
             </Text>
           </View>
-          <View style={styles.prayerHeader}>
+          <View style={[styles.prayerHeader, {paddingTop: 15}]}>
             <Text style={styles.h1}>
               {
                 this.whatPrayerTime() == 'null'?
@@ -331,7 +332,7 @@ export default class Home extends React.Component {
                       </Text>
                     </View>
                     <View style={styles.iqamahTime}>
-                      <Text style={[styles.h1, {color: 'red'}]}>
+                      <Text style={[styles.h1, {color: '#fff'}]}>
                       {item.fajr_iqamah}
                       </Text>
                     </View>
@@ -353,7 +354,7 @@ export default class Home extends React.Component {
                             </Text>
                           </View>
                           <View style={styles.iqamahTime}>
-                            <Text style={[styles.h1, {color: 'red'}]}>
+                            <Text style={[styles.h1, {color: '#fff'}]}>
                             {item2.fajr_iqamah}
                             </Text>
                           </View>
@@ -382,7 +383,7 @@ export default class Home extends React.Component {
                           </Text>
                         </View>
                         <View style={styles.iqamahTime}>
-                          <Text style={[styles.h1, {color: 'red'}]}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
                           {item.dhuhr_iqamah}
                           </Text>
                         </View>
@@ -408,7 +409,7 @@ export default class Home extends React.Component {
                           </Text>
                         </View>
                         <View style={styles.iqamahTime}>
-                          <Text style={[styles.h1, {color: 'red'}]}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
                           {item.asr_iqamah}
                           </Text>
                         </View>
@@ -434,7 +435,7 @@ export default class Home extends React.Component {
                           </Text>
                         </View>
                         <View style={styles.iqamahTime}>
-                          <Text style={[styles.h1, {color: 'red'}]}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
                           {item.maghrib_iqamah}
                           </Text>
                         </View>
@@ -460,7 +461,7 @@ export default class Home extends React.Component {
                           </Text>
                         </View>
                         <View style={styles.iqamahTime}>
-                          <Text style={[styles.h1, {color: 'red'}]}>
+                          <Text style={[styles.h1, {color: '#fff'}]}>
                           {item.isha_iqamah}
                           </Text>
                         </View>
@@ -479,15 +480,15 @@ export default class Home extends React.Component {
 {/*          </LinearGradient> */}
         </View>
         {
-            0 == 1 ?
-          //Platform.OS === 'android'?
+            
+          Platform.OS === 'android'?
             <View>
             <LinearGradient
                 colors={['rgba(0,0,0,.6)', 'transparent']}
                 style={{
                     left: 0,
                     right: 0,
-                    height: 40,
+                    height: 50,
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
                 }}
@@ -519,33 +520,68 @@ const styles = StyleSheet.create({
 
   },
   nextTime: {
-      backgroundColor: '#142922'
+      backgroundColor: '#142922',
+      // alignItems: 'center',
+      // justifyContent: 'center',
+
+      // Linear Gradient for ios:
+
+      shadowColor: '#000000',
+      shadowOffset: {
+        width: 0,
+        height: 45
+      },
+      shadowRadius: 5,
+      shadowOpacity: .65,
 
 
 
 
   },
   header: {
-      backgroundColor: '#3d7b66'
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#3d7b66',
+      paddingTop: 15,
+      paddingBottom: 15,
 
 
   },
 
   h2: {
+    color: '#fff',
+    fontSize: scaleWidth(50),
+    fontWeight: 'bold'
+
 
   },
   title: {
+    color: '#fff',
+    fontSize: scaleWidth(70),
+    fontWeight: 'bold'
 
     
   },
   prayerHeader: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
 
   },
   h1:{
+    color: '#fff',
+    fontSize: scaleWidth(150),
+    fontWeight: 'bold',
   
   },
   iqamahTime:{
-      backgroundColor: '#51a45f'
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#51a45f',
+      paddingTop: 15,
+      paddingBottom: 15,
    
   },
   dateHeader:{

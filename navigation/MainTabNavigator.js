@@ -12,7 +12,7 @@ import NewHomeScreen from '../screens/NewHomeScreen';
 import Home from '../screens/Home';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: Home,
 });
 
 HomeStack.navigationOptions = {
@@ -106,7 +106,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  NewHomeStack,
+  // NewHomeStack,
   HomeStack,
   // AboutStack,
 
