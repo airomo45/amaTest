@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, StatusBar, Platform } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import axios from 'axios';
 import { scaleWidth, scaleHeight } from '../assets/responsive/fontSize';
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     width: '100%',
-    height: 50,
+    height: scaleHeight(100),
     // padding: 10,
     backgroundColor: '#3d7b66',
     marginTop: 10,
@@ -260,6 +260,8 @@ const styles = StyleSheet.create({
     // fontSize: '10%',
     fontWeight: 'bold',
     fontSize: scaleWidth(55),
+    fontFamily: Platform.OS === 'ios'? null : 'Roboto',
+
 
     
   },
@@ -268,10 +270,13 @@ const styles = StyleSheet.create({
     // fontSize: 25,
     fontSize: scaleWidth(45),
     fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios'? null : 'Roboto',
+
   },
   leftColumn:{
     backgroundColor: '#142922',
     width: '44%',
+    height: scaleHeight(100),
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center'
@@ -279,7 +284,7 @@ const styles = StyleSheet.create({
   },
   rightColumn:{
     width: '44%',
-    height: 50,
+    height: scaleHeight(100),
     padding: 10,
     paddingLeft: 35,
     alignItems: 'center',
@@ -289,7 +294,7 @@ const styles = StyleSheet.create({
   },
   iqamahContainer: {
     width: '100%',
-    height: 40,
+    height: scaleHeight(100),
     paddingTop: 0,
     paddingBottom: 0,
     backgroundColor: '#51a45f',
@@ -303,6 +308,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#142922',
     width: '44%',
     padding: 5,
+    height: scaleHeight(100),
     paddingTop: 0,
     alignItems: 'center',
     justifyContent: 'center'
@@ -310,7 +316,7 @@ const styles = StyleSheet.create({
   },
   rightColumn_iqamah:{
     width: '44%',
-    height: 50,
+    height: scaleHeight(100),
     padding: 5,
     paddingTop: 0,
     paddingLeft: 30,
@@ -322,7 +328,7 @@ const styles = StyleSheet.create({
   },
   sunriseContainer: {
     width: '100%',
-    height: 40,
+    height: scaleHeight(100),
     paddingTop: 0,
     paddingBottom: 0,
     backgroundColor: 'red',

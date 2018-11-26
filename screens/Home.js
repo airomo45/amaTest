@@ -552,14 +552,17 @@ const styles = StyleSheet.create({
   h2: {
     color: '#fff',
     fontSize: scaleWidth(50),
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios'? null : 'Roboto',
 
 
   },
   title: {
     color: '#fff',
     fontSize: scaleWidth(70),
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios'? null : 'Roboto',
+
 
     
   },
@@ -573,6 +576,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: scaleWidth(150),
     fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios'? null : 'Roboto',
+
   
   },
   iqamahTime:{
